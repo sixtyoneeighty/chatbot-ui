@@ -21,6 +21,9 @@ import {
   SETUP_STEP_COUNT,
   StepContainer
 } from "../../../components/setup/step-container"
+import { FcGoogle } from 'react-icons/fc'
+import { FaDiscord, FaTwitch } from 'react-icons/fa'
+import { Button } from "@/components/ui/button"
 
 export default function SetupPage() {
   const {
@@ -155,6 +158,33 @@ export default function SetupPage() {
     return router.push(`/${homeWorkspace?.id}/chat`)
   }
 
+  const handleGoogleLogin = async () => {
+    await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`
+      }
+    })
+  }
+
+  const handleDiscordLogin = async () => {
+    await supabase.auth.signInWithOAuth({
+      provider: 'discord',
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`
+      }
+    })
+  }
+
+  const handleTwitchLogin = async () => {
+    await supabase.auth.signInWithOAuth({
+      provider: 'twitch',
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`
+      }
+    })
+  }
+
   const renderStep = (stepNum: number) => {
     switch (stepNum) {
       // Profile Step
@@ -163,7 +193,7 @@ export default function SetupPage() {
           <StepContainer
             stepDescription="Let's create your profile."
             stepNum={currentStep}
-            stepTitle="Welcome to Chatbot UI"
+            stepTitle="Welcome to sixtyoneeighty chat featuring Mojo"
             onShouldProceed={handleShouldProceed}
             showNextButton={!!(username && usernameAvailable)}
             showBackButton={false}
@@ -251,6 +281,34 @@ export default function SetupPage() {
   return (
     <div className="flex h-full items-center justify-center">
       {renderStep(currentStep)}
+      <div className="flex flex-col gap-4">
+        <Button
+          variant="outline"
+          onClick={handleGoogleLogin}
+          className="flex items-center gap-2"
+        >
+          <FcGoogle className="h-5 w-5" />
+          Continue with Google
+        </Button>
+
+        <Button
+          variant="outline"
+          onClick={handleDiscordLogin}
+          className="flex items-center gap-2"
+        >
+          <FaDiscord className="h-5 w-5 text-[#5865F2]" />
+          Continue with Discord
+        </Button>
+
+        <Button
+          variant="outline"
+          onClick={handleTwitchLogin}
+          className="flex items-center gap-2"
+        >
+          <FaTwitch className="h-5 w-5 text-[#9146FF]" />
+          Continue with Twitch
+        </Button>
+      </div>
     </div>
   )
 }
