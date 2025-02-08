@@ -21,8 +21,8 @@ import {
   SETUP_STEP_COUNT,
   StepContainer
 } from "../../../components/setup/step-container"
-import { FcGoogle } from 'react-icons/fc'
-import { FaDiscord, FaTwitch } from 'react-icons/fa'
+import { FcGoogle } from "react-icons/fc"
+import { FaDiscord, FaTwitch } from "react-icons/fa"
 import { Button } from "@/components/ui/button"
 
 export default function SetupPage() {
@@ -160,7 +160,7 @@ export default function SetupPage() {
 
   const handleGoogleLogin = async () => {
     await supabase.auth.signInWithOAuth({
-      provider: 'google',
+      provider: "google",
       options: {
         redirectTo: `${window.location.origin}/auth/callback`
       }
@@ -169,7 +169,7 @@ export default function SetupPage() {
 
   const handleDiscordLogin = async () => {
     await supabase.auth.signInWithOAuth({
-      provider: 'discord',
+      provider: "discord",
       options: {
         redirectTo: `${window.location.origin}/auth/callback`
       }
@@ -178,7 +178,7 @@ export default function SetupPage() {
 
   const handleTwitchLogin = async () => {
     await supabase.auth.signInWithOAuth({
-      provider: 'twitch',
+      provider: "twitch",
       options: {
         redirectTo: `${window.location.origin}/auth/callback`
       }
@@ -287,7 +287,7 @@ export default function SetupPage() {
           onClick={handleGoogleLogin}
           className="flex items-center gap-2"
         >
-          <FcGoogle className="h-5 w-5" />
+          <FcGoogle className="size-5" />
           Continue with Google
         </Button>
 
@@ -296,7 +296,7 @@ export default function SetupPage() {
           onClick={handleDiscordLogin}
           className="flex items-center gap-2"
         >
-          <FaDiscord className="h-5 w-5 text-[#5865F2]" />
+          <FaDiscord className="size-5 text-[#5865F2]" />
           Continue with Discord
         </Button>
 
@@ -305,7 +305,7 @@ export default function SetupPage() {
           onClick={handleTwitchLogin}
           className="flex items-center gap-2"
         >
-          <FaTwitch className="h-5 w-5 text-[#9146FF]" />
+          <FaTwitch className="size-5 text-[#9146FF]" />
           Continue with Twitch
         </Button>
       </div>
