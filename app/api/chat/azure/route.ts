@@ -2,7 +2,7 @@ import { checkApiKey, getServerProfile } from "@/lib/server/server-chat-helpers"
 import { ChatAPIPayload } from "@/types"
 import { OpenAIStream, StreamingTextResponse } from "ai"
 import OpenAI from "openai"
-import { ChatCompletionCreateParamsBase } from "openai/resources/chat/completions.mjs"
+import type { ChatCompletionCreateParams } from "openai/resources"
 
 export const runtime = "edge"
 
@@ -52,8 +52,8 @@ export async function POST(request: Request) {
     })
 
     const response = await azureOpenai.chat.completions.create({
-      model: DEPLOYMENT_ID as ChatCompletionCreateParamsBase["model"],
-      messages: messages as ChatCompletionCreateParamsBase["messages"],
+      model: DEPLOYMENT_ID as ChatCompletionCreateParams["model"],
+      messages: messages as ChatCompletionCreateParams["messages"],
       temperature: chatSettings.temperature,
       max_tokens: chatSettings.model === "gpt-4-vision-preview" ? 4096 : null, // TODO: Fix
       stream: true
