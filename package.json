@@ -99,6 +99,10 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@babel/core": "^7.26.8",
+    "@babel/preset-env": "^7.26.8",
+    "@babel/preset-react": "^7.26.3",
+    "@babel/preset-typescript": "^7.26.0",
     "@next/bundle-analyzer": "^14.0.2",
     "@tailwindcss/typography": "^0.5.10",
     "@testing-library/jest-dom": "^6.2.0",
@@ -111,6 +115,7 @@
     "@types/react-syntax-highlighter": "^15.5.11",
     "@types/uuid": "^9.0.7",
     "autoprefixer": "^10.4.16",
+    "babel-loader": "^9.2.1",
     "clsx": "^2.0.0",
     "eslint": "^8",
     "eslint-config-next": "^14.0.2",
