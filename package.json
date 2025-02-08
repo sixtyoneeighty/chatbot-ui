@@ -29,6 +29,8 @@
     "@anthropic-ai/sdk": "^0.18.0",
     "@apidevtools/json-schema-ref-parser": "^11.1.0",
     "@azure/openai": "^1.0.0-beta.8",
+    "@babel/preset-react": "^7.26.3",
+    "@babel/preset-typescript": "^7.26.0",
     "@google/generative-ai": "^0.11.4",
     "@hookform/resolvers": "^3.3.2",
     "@mistralai/mistralai": "^0.0.8",
@@ -81,6 +83,7 @@
     "next-i18n-router": "^5.2.0",
     "next-pwa": "5.6.0",
     "next-themes": "^0.2.1",
+    "node-loader": "^2.1.0",
     "openai": "^4.23.0",
     "pdf-parse": "^1.1.1",
     "react": "^18",
@@ -88,6 +91,7 @@
     "react-dom": "^18",
     "react-hook-form": "^7.48.2",
     "react-i18next": "^14.0.0",
+    "react-icons": "^5.4.0",
     "react-markdown": "^9.0.1",
     "react-syntax-highlighter": "^15.5.0",
     "react-textarea-autosize": "^8.5.3",
@@ -98,6 +102,8 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@babel/core": "^7.26.8",
+    "@babel/preset-env": "^7.26.8",
     "@next/bundle-analyzer": "^14.0.2",
     "@tailwindcss/typography": "^0.5.10",
     "@testing-library/jest-dom": "^6.2.0",
@@ -110,6 +116,7 @@
     "@types/react-syntax-highlighter": "^15.5.11",
     "@types/uuid": "^9.0.7",
     "autoprefixer": "^10.4.16",
+    "babel-loader": "^9.2.1",
     "clsx": "^2.0.0",
     "eslint": "^8",
     "eslint-config-next": "^14.0.2",
@@ -124,6 +131,7 @@
     "tailwindcss": "^3.3.5",
     "tailwindcss-animate": "^1.0.7",
     "ts-node": "^10.9.2",
-    "typescript": "^5"
+    "typescript": "^5",
+    "webpack": "^5.97.1"
   }
 }
