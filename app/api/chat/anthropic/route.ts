@@ -3,12 +3,7 @@ import { checkApiKey, getServerProfile } from "@/lib/server/server-chat-helpers"
 import { getBase64FromDataURL, getMediaTypeFromDataURL } from "@/lib/utils"
 import { ChatSettings } from "@/types"
 import Anthropic from "@anthropic-ai/sdk"
-import {
-  StreamingTextResponse,
-  experimental_StreamData,
-  AIStream,
-  createStreamDataTransformer
-} from "ai"
+import { StreamingTextResponse, experimental_StreamData } from "ai/server"
 import { NextRequest, NextResponse } from "next/server"
 
 export const runtime = "edge"
