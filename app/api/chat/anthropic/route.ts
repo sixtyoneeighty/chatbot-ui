@@ -3,7 +3,7 @@ import { checkApiKey, getServerProfile } from "@/lib/server/server-chat-helpers"
 import { getBase64FromDataURL, getMediaTypeFromDataURL } from "@/lib/utils"
 import { ChatSettings } from "@/types"
 import Anthropic from "@anthropic-ai/sdk"
-import { streamText } from "ai"
+import { StreamingTextResponse } from "ai"
 import { NextRequest, NextResponse } from "next/server"
 
 export const runtime = "edge"
@@ -60,14 +60,16 @@ export async function POST(request: NextRequest) {
     })
 
     try {
-      return streamText({
-        model: chatSettings.model,
-        messages: ANTHROPIC_FORMATTED_MESSAGES,
-        temperature: chatSettings.temperature,
-        maxTokens:
+      const stream = await anthropic.messages.create({
+        max_tokens:
           CHAT_SETTING_LIMITS[chatSettings.model].MAX_TOKEN_OUTPUT_LENGTH,
-        provider: anthropic
+        messages: ANTHROPIC_FORMATTED_MESSAGES,
+        model: chatSettings.model,
+        stream: true,
+        temperature: chatSettings.temperature
       })
+
+      return new StreamingTextResponse(stream)
     } catch (error: any) {
       let errorMessage = error.message || "An unexpected error occurred"
       const errorCode = error.status || 500
