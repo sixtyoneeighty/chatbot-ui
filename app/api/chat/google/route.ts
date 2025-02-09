@@ -1,7 +1,7 @@
 import { checkApiKey, getServerProfile } from "@/lib/server/server-chat-helpers"
 import { ChatSettings } from "@/types"
 import { GoogleGenerativeAI } from "@google/generative-ai"
-import { StreamingTextResponse } from "ai"
+import { experimental_StreamData } from "ai"
 
 export const runtime = "edge"
 
@@ -40,7 +40,10 @@ export async function POST(request: Request) {
       }
     })
 
-    return new StreamingTextResponse(stream)
+    const data = new experimental_StreamData()
+    return new Response(stream, {
+      headers: { "Content-Type": "text/plain; charset=utf-8" }
+    })
   } catch (error: any) {
     let errorMessage = error.message || "An unexpected error occurred"
     const errorCode = error.status || 500

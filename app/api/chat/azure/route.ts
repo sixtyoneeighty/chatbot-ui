@@ -1,6 +1,6 @@
 import { checkApiKey, getServerProfile } from "@/lib/server/server-chat-helpers"
 import { ChatAPIPayload } from "@/types"
-import { OpenAIStream, StreamingTextResponse } from "ai"
+import { OpenAIStream } from "ai"
 import OpenAI from "openai"
 import { ChatCompletionCreateParamsBase } from "openai/resources/chat/completions.mjs"
 
@@ -62,7 +62,9 @@ export async function POST(request: Request) {
     // Convert Azure OpenAI stream to compatible format
     const stream = OpenAIStream(response as any)
 
-    return new StreamingTextResponse(stream)
+    return new Response(stream, {
+      headers: { "Content-Type": "text/plain; charset=utf-8" }
+    })
   } catch (error: any) {
     const errorMessage = error.error?.message || "An unexpected error occurred"
     const errorCode = error.status || 500

@@ -1,7 +1,7 @@
 import { CHAT_SETTING_LIMITS } from "@/lib/chat-setting-limits"
 import { checkApiKey, getServerProfile } from "@/lib/server/server-chat-helpers"
 import { ChatSettings } from "@/types"
-import { StreamingTextResponse } from "ai"
+import { OpenAIStream } from "ai"
 import OpenAI from "openai"
 
 export const runtime = "edge"
@@ -36,7 +36,9 @@ export async function POST(request: Request) {
     const stream = OpenAIStream(response)
 
     // Respond with the stream
-    return new StreamingTextResponse(stream)
+    return new Response(stream, {
+      headers: { "Content-Type": "text/plain; charset=utf-8" }
+    })
   } catch (error: any) {
     let errorMessage = error.message || "An unexpected error occurred"
     const errorCode = error.status || 500
