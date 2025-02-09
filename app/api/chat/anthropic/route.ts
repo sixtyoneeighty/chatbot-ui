@@ -3,7 +3,7 @@ import { checkApiKey, getServerProfile } from "@/lib/server/server-chat-helpers"
 import { getBase64FromDataURL, getMediaTypeFromDataURL } from "@/lib/utils"
 import { ChatSettings } from "@/types"
 import Anthropic from "@anthropic-ai/sdk"
-import { StreamingTextResponse, experimental_StreamData } from "ai"
+import { AnthropicStream } from "ai/streams"
 import { NextRequest, NextResponse } from "next/server"
 
 export const runtime = "edge"
@@ -69,8 +69,7 @@ export async function POST(request: NextRequest) {
         temperature: chatSettings.temperature
       })
 
-      const data = new experimental_StreamData()
-      return new Response(stream, {
+      return new Response(AnthropicStream(stream), {
         headers: { "Content-Type": "text/plain; charset=utf-8" }
       })
     } catch (error: any) {

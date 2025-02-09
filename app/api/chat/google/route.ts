@@ -1,7 +1,7 @@
 import { checkApiKey, getServerProfile } from "@/lib/server/server-chat-helpers"
 import { ChatSettings } from "@/types"
 import { GoogleGenerativeAI } from "@google/generative-ai"
-import { experimental_StreamData } from "ai"
+import { GoogleGenerativeAIStream } from "ai/streams"
 
 export const runtime = "edge"
 
@@ -40,8 +40,7 @@ export async function POST(request: Request) {
       }
     })
 
-    const data = new experimental_StreamData()
-    return new Response(stream, {
+    return new Response(GoogleGenerativeAIStream(stream), {
       headers: { "Content-Type": "text/plain; charset=utf-8" }
     })
   } catch (error: any) {

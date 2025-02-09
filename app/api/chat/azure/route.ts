@@ -1,6 +1,6 @@
 import { checkApiKey, getServerProfile } from "@/lib/server/server-chat-helpers"
 import { ChatAPIPayload } from "@/types"
-import { OpenAIStream } from "ai"
+import { OpenAIStream } from "ai/streams"
 import OpenAI from "openai"
 import { ChatCompletionCreateParamsBase } from "openai/resources/chat/completions.mjs"
 

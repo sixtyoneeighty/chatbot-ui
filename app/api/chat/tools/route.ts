@@ -2,7 +2,7 @@ import { openapiToFunctions } from "@/lib/openapi-conversion"
 import { checkApiKey, getServerProfile } from "@/lib/server/server-chat-helpers"
 import { Tables } from "@/supabase/types"
 import { ChatSettings } from "@/types"
-import { OpenAIStream } from "ai"
+import { OpenAIStream } from "ai/streams"
 import OpenAI from "openai"
 import { ChatCompletionCreateParamsBase } from "openai/resources/chat/completions.mjs"
 

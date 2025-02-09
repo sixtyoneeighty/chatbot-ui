@@ -1,7 +1,7 @@
 import { CHAT_SETTING_LIMITS } from "@/lib/chat-setting-limits"
 import { checkApiKey, getServerProfile } from "@/lib/server/server-chat-helpers"
 import { ChatSettings } from "@/types"
-import { OpenAIStream } from "ai"
+import { OpenAIStream } from "ai/streams"
 import OpenAI from "openai"
 
 export const runtime = "edge"
