@@ -3,7 +3,7 @@ import { checkApiKey, getServerProfile } from "@/lib/server/server-chat-helpers"
 import { getBase64FromDataURL, getMediaTypeFromDataURL } from "@/lib/utils"
 import { ChatSettings } from "@/types"
 import Anthropic from "@anthropic-ai/sdk"
-import { StreamingTextResponse, experimental_StreamData } from "ai"
+import { streamText } from "ai"
 import { NextRequest, NextResponse } from "next/server"
 
 export const runtime = "edge"
@@ -60,43 +60,29 @@ export async function POST(request: NextRequest) {
     })
 
     try {
-      const response = await anthropic.messages.create({
+      return streamText({
         model: chatSettings.model,
         messages: ANTHROPIC_FORMATTED_MESSAGES,
         temperature: chatSettings.temperature,
-        system: messages[0].content,
-        max_tokens:
+        maxTokens:
           CHAT_SETTING_LIMITS[chatSettings.model].MAX_TOKEN_OUTPUT_LENGTH,
-        stream: true
+        provider: anthropic
       })
-
-      try {
-        const data = new experimental_StreamData()
-        const stream = AIStream(response, {
-          onFinal() {
-            data.close()
-          },
-          experimental_streamData: true
-        })
-        return new StreamingTextResponse(stream, { data })
-      } catch (error: any) {
-        console.error("Error parsing Anthropic API response:", error)
-        return new NextResponse(
-          JSON.stringify({
-            message:
-              "An error occurred while parsing the Anthropic API response"
-          }),
-          { status: 500 }
-        )
-      }
     } catch (error: any) {
-      console.error("Error calling Anthropic API:", error)
-      return new NextResponse(
-        JSON.stringify({
-          message: "An error occurred while calling the Anthropic API"
-        }),
-        { status: 500 }
-      )
+      let errorMessage = error.message || "An unexpected error occurred"
+      const errorCode = error.status || 500
+
+      if (errorMessage.toLowerCase().includes("api key not found")) {
+        errorMessage =
+          "Anthropic API Key not found. Please set it in your profile settings."
+      } else if (errorCode === 401) {
+        errorMessage =
+          "Anthropic API Key is incorrect. Please fix it in your profile settings."
+      }
+
+      return new NextResponse(JSON.stringify({ message: errorMessage }), {
+        status: errorCode
+      })
     }
   } catch (error: any) {
     let errorMessage = error.message || "An unexpected error occurred"
